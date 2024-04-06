@@ -63,4 +63,46 @@ export const GETALLPOLICIES =async () => {
     }
 }
 
+
+export const BUYPOLICY = async (id, { value: premiumWei }) => {
+   
+    try {
+
+        const provider =
+            window.ethereum != null
+                ? new ethers.providers.Web3Provider(window.ethereum)
+                : ethers.providers.getDefaultProvider();
+
+        const signer = provider.getSigner();
+        const Role = new ethers.Contract(INSURE_CONTRACT, ABI, signer);
+        const tokenId = await Role.buyPolicy(id, { value: premiumWei });
+        alert('POLICY Bought successfully!!');
+        return tokenId;
+    } catch (error) {
+        console.error('Error Buying Policy:', error);
+    }
+}
+
+
+
+export const GETCONTRACTBALANCE =async () => {
+    try {
+        // const provider = new ethers.providers.JsonRpcProvider(
+        //     "https://sepolia.infura.io/v3/290819ba5ca344eea8990cb5ccaa8e6a"
+        // );
+        const provider = 
+        window.ethereum != null
+          ? new ethers.providers.Web3Provider(window.ethereum)
+          : ethers.providers.getDefaultProvider();
+    
+        const signer = provider.getSigner();
+        const Role = new ethers.Contract(INSURE_CONTRACT, ABI, signer);
+        const answer = await Role.getContractBalance();
+        const contractBalance = parseInt(answer, 16);
+        return contractBalance;
+    } catch (error) {
+        console.error('Error fetching Balance:', error);
+    }
+}
+
   

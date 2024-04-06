@@ -1,8 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { GETALLPOLICIES } from '../ContractIntegration';
+import { BUYPOLICY } from '../ContractIntegration';
+import { ethers } from 'ethers';
 
 const Gpolicy = () => {
     const [entries, setEntries] = useState([]);
+
+
+    const handleBuyPolicy = async (id, premium) => {
+        try {
+            const premiumWei = ethers.utils.parseEther(premium.toString()); // Convert premium to Wei
+            const tokenId = await BUYPOLICY(id, { value: premiumWei }); // Send premium amount in Wei with the transaction
+            console.log(tokenId);
+
+        } catch (error) {
+            console.error('Error Buying Policy:', error);
+        }
+    };
+
+
 
     const get = async () => {
         console.log("getting value");
@@ -38,7 +54,7 @@ const Gpolicy = () => {
                     <p>Premium: {entry.Premium}</p>
                     <p>Duration: {entry.Duration}</p>
                     <p>IsActive: {entry.IsActive}</p>
-                    <button className='border-2 px-2 py-1 text-md rounded-lg bg-red-500'  >Buy Policy </button>
+                    <button className='border-2 px-2 py-1 text-md rounded-lg bg-red-500' onClick={() => handleBuyPolicy(entry.Id, entry.Premium)} >Buy Policy </button>
                 </div>
             ))}
         </div> 

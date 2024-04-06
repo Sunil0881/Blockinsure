@@ -1,9 +1,10 @@
 import React from 'react'
 import lifeins from '../assests/lifeins.jpg';
-
+import Header from "../components/Header";
 const Home = () => {
   return (
-      
+    <div>
+    <Header />
     <div className='justify-between grid grid-cols-2'>
         <div className='px-28 mt-16 text-center'>
           <p className='mb-10 text-3xl text-blue-600 font-bold'>"Protecting Your Tomorrows, Today."</p>
@@ -20,6 +21,7 @@ const Home = () => {
         <div>  
          
         </div>
+  </div>
   </div>
 
   )

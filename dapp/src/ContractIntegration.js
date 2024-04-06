@@ -1,9 +1,10 @@
 
-import ABI from "../src/abi/Coffee.json";
+import ABI from "../src/abi/Ins.json";
 import { ethers } from "ethers";
 import Web3 from "web3";
+import { BigNumber } from "ethers";
 
-const INSURE_CONTRACT = "0x49AD8e1A9CEA807e59537297c40Fa93BB3B04624";
+const INSURE_CONTRACT = "0xD6C9E67eC6c2D00E2C54DF7e328e7F8652b1e80b";
 
 const isBrowser = () => typeof window !== "undefined";
 const { ethereum } = isBrowser();
@@ -14,7 +15,35 @@ if (ethereum) {
 }
 
  
-export const ADDPOLICY =async () => {
+
+export const ADDPOLICY = async (_id, _policyName, _policyDetails, _coverageAmount, _premiumAmount, _durationYears) => {
+   
+    try {
+        // Validate input values
+        if (!_id || !_policyName || !_policyDetails || !_coverageAmount || !_premiumAmount || !_durationYears) {
+            throw new Error("One or more arguments are undefined.");
+        }
+
+        const provider =
+            window.ethereum != null
+                ? new ethers.providers.Web3Provider(window.ethereum)
+                : ethers.providers.getDefaultProvider();
+
+        const signer = provider.getSigner();
+        const coverageAmountBigNumber = BigNumber.from(_coverageAmount);
+        const premiumAmountBigNumber = BigNumber.from(_premiumAmount);
+        const durationYearsBigNumber = BigNumber.from(_durationYears);
+        const Role = new ethers.Contract(INSURE_CONTRACT, ABI, signer);
+        const tokenId = await Role.addPolicy(_id, _policyName, _policyDetails, coverageAmountBigNumber, premiumAmountBigNumber, durationYearsBigNumber);
+        alert('POLICY ADDED successfully!');
+        return tokenId;
+    } catch (error) {
+        console.error('Error Adding Policy:', error);
+    }
+}
+
+
+export const GETALLPOLICIES =async () => {
     try {
         // const provider = new ethers.providers.JsonRpcProvider(
         //     "https://sepolia.infura.io/v3/290819ba5ca344eea8990cb5ccaa8e6a"
@@ -26,27 +55,12 @@ export const ADDPOLICY =async () => {
     
         const signer = provider.getSigner();
         const Role = new ethers.Contract(INSURE_CONTRACT, ABI, signer);
-        const answer = await Role.addPolicy();
+        const answer = await Role.getAllPolicies();
+        console.log(answer);
         return answer;
     } catch (error) {
-        console.error('Error fetching memo:', error);
+        console.error('Error fetching Policies:', error);
     }
 }
 
-export const BUYCOFFEE = async ({ name, message, _cost }) => {
-    try {
-      const provider =
-        window.ethereum != null
-          ? new ethers.providers.Web3Provider(window.ethereum)
-          : ethers.providers.getDefaultProvider();
-  
-      const signer = provider.getSigner();
-      const Role = new ethers.Contract(COFFEE_CONTRACT, Cof, signer);
-      const tokenId = await Role.buyCoffee(name, message, { value: _cost });
-      alert('Coffee bought successfully!');
-      return tokenId;
-    } catch (error) {
-      console.error('Error buying memo:', error);
-    }   
-  }
   

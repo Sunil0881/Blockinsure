@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from "../src/pages/Home.js"
+import Home from "../src/pages/Home.js";
+import Header from '../src/components/Header.js';
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <div>
     
          <Router>
+          <Header />
             <Routes>
               <Route path="/" element={<Home />} />
             </Routes>

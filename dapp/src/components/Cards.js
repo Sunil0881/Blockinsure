@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Policy() {
+const Cards = () => {
   return (
     <div className='px-40 py-1'>
           <div className="bg-blue-200 rounded">
@@ -31,14 +31,11 @@ function Policy() {
                                <div className="py-10 px-20">
                                         <button className='border-2 border-gray-600 rounded-md hover:bg-blue-600  px-9'>Buy Policy</button>
                                </div>
-                              
-                              
-                              
-                              
-                              
-                    </div>
+                      </div>
           </div>
           </div>
+
+        
          
 
 
@@ -46,4 +43,4 @@ function Policy() {
   )
 }
 
-export default Policy
+export default Cards

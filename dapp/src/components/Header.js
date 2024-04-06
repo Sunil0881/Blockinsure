@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation,useNavigate } from 'react-router-dom'
+import Button from './Button';
 export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Header() {
 
   return (
     <div>
-      <header className='flex justify-between items-center px-3 mx-auto bg-white border-b shadow-sm sticky top-0 z-40'>
+      <header className='flex justify-between items-center px-3 mx-auto bg-white border-b shadow-sm sticky top-0 z-40 '>
         <div>
           <h1 className='h-5 cursor-pointer text-blue-900 font-bold' 
           onClick={()=>navigate("/")}>BlockInsure</h1>
@@ -24,16 +25,20 @@ export default function Header() {
             onClick={()=>
             navigate("/")}>Home</li>
             <li className={`cursor-pointer text-sm py-3 font-bold text-gray-400 border-b-[3px] border-b-transparent 
-            ${pathMatchRoute("/policies") && "text-zinc-950 border-b-red-500"}`} 
-            onClick={()=>
-            navigate("/policies")} >Policies</li>
+            ${pathMatchRoute("/policy") && "text-zinc-950 border-b-red-500"}`} 
+            onClick={()=> 
+            navigate("/policy")} >Policy</li>
             <li className={`cursor-pointer text-sm py-3 font-bold text-gray-400 border-b-[3px] border-b-transparent
             ${pathMatchRoute("/claim") && "text-zinc-950 border-b-red-500"}`}             
             onClick={()=>
             navigate("/claim")} >Claim</li>
             
           </ul>
+
+         
+          
         </div>
+        <Button />
       </header>
     </div>
   )

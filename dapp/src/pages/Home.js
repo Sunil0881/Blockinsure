@@ -1,5 +1,6 @@
 import React from 'react'
 import lifeins from '../assests/lifeins.jpg';
+
 const Home = () => {
   return (
       
@@ -15,7 +16,11 @@ const Home = () => {
           <img width='400' className="" src={lifeins}>
           </img>
         </div>
-      </div>
+
+        <div>  
+         
+        </div>
+  </div>
 
   )
 }

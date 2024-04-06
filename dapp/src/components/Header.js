@@ -13,9 +13,9 @@ export default function Header() {
 
   return (
     <div>
-      <header className='flex justify-between items-center px-3 mx-auto bg-white border-b shadow-sm sticky top-0 z-40 '>
+      <header className='flex justify-between items-center px-3 mx-auto bg-white border-b shadow-sm sticky top-0 z-40 pb-4 '>
         <div>
-          <h1 className='h-5 cursor-pointer text-blue-900 font-bold' 
+          <h1 className='h-5 cursor-pointer text-4xl pb-4 text-blue-900 font-extrabold' 
           onClick={()=>navigate("/")}>BlockInsure</h1>
         </div>
         <div>

@@ -5,7 +5,7 @@ import Web3 from "web3";
 import { BigNumber } from "ethers";
 
 const INSURE_CONTRACT = "0xD6C9E67eC6c2D00E2C54DF7e328e7F8652b1e80b";
-
+// 0xD6C9E67eC6c2D00E2C54DF7e328e7F8652b1e80b
 const isBrowser = () => typeof window !== "undefined";
 const { ethereum } = isBrowser();
 
@@ -104,5 +104,27 @@ export const GETCONTRACTBALANCE =async () => {
         console.error('Error fetching Balance:', error);
     }
 }
+
+
+
+export const WITHDRAW = async (amount) => {
+   
+    try {
+
+        const provider =
+            window.ethereum != null
+                ? new ethers.providers.Web3Provider(window.ethereum)
+                : ethers.providers.getDefaultProvider();
+
+        const signer = provider.getSigner();
+        const Role = new ethers.Contract(INSURE_CONTRACT, ABI, signer);
+        const tokenId = await Role.withdraw(amount);
+        alert('Amount Withdraw Successfully');
+        return tokenId;
+    } catch (error) {
+        console.error('Error Withdrawing Amount:', error);
+    }
+}
+
 
   
